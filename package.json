@@ -2,9 +2,16 @@
   "name": "aurora-web",
   "version": "1.0.0",
   "description": "###### created by AuroraAccessibility",
-  "main": "index.js",
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -14,6 +21,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/AuroraAccessibility/Aurora-web/issues"
-  },
-  "homepage": "https://github.com/AuroraAccessibility/Aurora-web#readme"
+  }
 }
