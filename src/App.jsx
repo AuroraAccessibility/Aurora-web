@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { Card } from 'antd'
-import UploadForm from './components/UploadForm'
+import { BrowserRouter, Route } from 'react-router-dom'
+import HomePage from './components/HomePage'
+import Dashboard from './components/Dashboard'
 import 'antd/dist/antd.css';
 import './App.css';
 
 class App extends Component {
+	state = {
+		loggedIn: true
+	}
+	logIn() {
+
+	}
 	render() {
 		return (
-			<div className="upload-container">
-				<Card style={{ width: 300 }} className="upload-card">
-					<UploadForm />
-				</Card>
-			</div>
+			<BrowserRouter>
+				<span>
+					<Route path='/' component={HomePage} exact/>
+					<Route path='/dashboard' component={Dashboard} exact/>
+				</span>
+			</BrowserRouter>
 		);
 	}
 }
 
-export default App;
+export default App

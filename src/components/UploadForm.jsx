@@ -1,27 +1,28 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import { Form, Icon, Input, Button } from 'antd';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
+  state = {
+    loggedIn: false
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.setState(state => ({
+          loggedIn: true
+        }))
       }
     });
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    if (this.state.loggedIn) return <Redirect to='/dashboard' />
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
-        <FormItem>
-          {getFieldDecorator('title', {
-            rules: [{ required: true, message: 'Please input the title' }],
-          })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Title" />
-          )}
-        </FormItem>
+        {this.state.loggedIn}
         <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input the Password' }],
@@ -32,9 +33,6 @@ class NormalLoginForm extends React.Component {
         <FormItem className="form-buttons">
           <Button type="primary" htmlType="submit" className="login-form-button">
             Submit
-          </Button>
-          <Button type="primary" htmlType="submit" className="upload-form-button">
-            upload
           </Button>
         </FormItem>
       </Form>

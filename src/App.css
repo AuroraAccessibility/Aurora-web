@@ -1,5 +1,8 @@
 #root {
   height: 100%;
+}
+
+div {
   overflow: auto;
 }
 
@@ -12,11 +15,10 @@
   margin: auto;
 }
 
-.upload-form-button {
-  float: right;
+.form-buttons {
   margin: 0;
 }
 
-.form-buttons {
-  margin: 0;
+.ant-layout {
+  height: 100%
 }
