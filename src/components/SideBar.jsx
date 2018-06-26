@@ -16,7 +16,7 @@ class SideBar extends React.Component {
                     {Object.keys(this.props.courses).map(course => (
                         <SubMenu key={course} title={<span><Icon type="user" />{course}</span>}>
                         {Object.keys(this.props.courses[course]).map(type => (
-                            <Menu.Item key={type}>{type}</Menu.Item>
+                            <Menu.Item onClick={(e) => this.props.handleClick(this.props.courses[course][type])} key={type}>{type}</Menu.Item>
                         ))}
                         </SubMenu>
                     ))}
