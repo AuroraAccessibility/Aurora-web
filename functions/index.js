@@ -2,6 +2,8 @@ const functions = require('firebase-functions')
 const express = require('express')
 const bodyParser = require('body-parser')
 const firebase = require('firebase')
+const Tesseract = require('tesseract.js')
+const path = require('path')
 const cors = require('cors')({ origin: true })
 const app = express()
 
@@ -76,6 +78,19 @@ app.get('/test-exam', (req, res) => {
         code: 200,
         body: testObj
     });
+})
+
+app.get('/tesstest', (req, res) => {
+    Tesseract.create({
+        workerPath: path.join(__dirname, 'tesseract/src/node/worker.js'),
+        langPath: path.join(__dirname, 'tesseract/langs'),
+        corePath: path.join(__dirname, 'tesseract/src/index.js')
+    }).recognize(path.join(__dirname, 'assets', 'test.png'))
+    .then(function(result){
+        res.send(result.text)
+    }).catch(function(err) {
+        res.send('Tesseract Failed to recognize:', err)
+    })
 })
 
 exports.api = functions.https.onRequest((req, res) => {
