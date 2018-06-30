@@ -7,28 +7,32 @@ const { Header, Content, Footer } = Layout;
 
 class Dashboard extends React.Component {
     state = {
-        courses: {}
+        courses: {},
+        isLoaded: false
     }
     componentWillMount() {
         getUserData('devel123').then(response => {
             const firstCourse = Object.keys(response)[0]
             const firstSection = response[firstCourse][Object.keys(response[firstCourse])[0]]
-            this.updateContent(firstSection)
-            this.setState(state => ({
-                courses: response,
-                currContentId: firstSection
-            }))
+            this.updateContent(firstSection).then(repsonse => {
+                this.setState(state => ({
+                    courses: response,
+                    currContentId: firstSection,
+                    isLoaded: true
+                }))
+            })
+            
         })
     }
     updateContent = (id) => {
         if (id !== this.state.currContentId) {
-            getContentData(id).then(response => {
+            return getContentData(id).then(response => {
                 this.setState(state => ({
                     currContentId: id,
                     currContent: response
                 }))
             })
-            
+
         }
     }
     render() {
@@ -52,7 +56,7 @@ class Dashboard extends React.Component {
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <SideBar courses={this.state.courses} handleClick={this.updateContent} />
-                        <ContentHolder content={this.state.currContent} />
+                        <ContentHolder content={this.state.currContent} isLoaded={this.state.isLoaded} />
                     </Layout>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>

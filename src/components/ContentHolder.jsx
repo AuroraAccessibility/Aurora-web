@@ -1,8 +1,8 @@
 import React from 'react'
 import { Layout } from 'antd';
-import { Card, Icon, Avatar } from 'antd';
-const { Meta } = Card;
+import ContentCard from './ContentCard'
 const { Content } = Layout;
+
 
 class ContentHolder extends React.Component {
     componentWillMount() {
@@ -14,7 +14,9 @@ class ContentHolder extends React.Component {
     render() {
         return (
             <Content style={{ padding: '0 24px', minHeight: 0 }}>
+                {this.props.isLoaded ? null :'LOADING...'}
                 {this.props.content}
+                <ContentCard />
             </Content>
         )
     }
